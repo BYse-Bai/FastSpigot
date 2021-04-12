@@ -5,6 +5,7 @@
       <list>
         <option value="$PROJECT_DIR$/FastSpigot/pom.xml" />
         <option value="$PROJECT_DIR$/FastSpigot-Config/pom.xml" />
+        <option value="$PROJECT_DIR$/Example/pom.xml" />
       </list>
     </option>
   </component>

@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="FastSpigot-SimpleMysql" />
+        <module name="FastSpigot-Example" />
         <module name="FastSpigot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="FastSpigot" target="1.8" />
+      <module name="FastSpigot-Example" target="1.8" />
       <module name="FastSpigot-SimpleMysql" target="1.8" />
     </bytecodeTargetLevel>
   </component>
