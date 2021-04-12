@@ -8,4 +8,29 @@
     <artifactId>fastspigot</artifactId>
     <version>0.0.1</version>
 
+
+    <repositories>
+        <repository>
+            <id>hyrkg</id>
+            <url>hyrkg.cn:88/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.18</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.12.2-R0.1-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
 </project>
