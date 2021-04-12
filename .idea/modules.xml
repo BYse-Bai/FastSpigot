@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FastSpigot/FastSpigot.iml" filepath="$PROJECT_DIR$/FastSpigot/FastSpigot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Example/FastSpigot-Example.iml" filepath="$PROJECT_DIR$/Example/FastSpigot-Example.iml" />
       <module fileurl="file://$PROJECT_DIR$/FastSpigot-Config/FastSpigot-SimpleMysql.iml" filepath="$PROJECT_DIR$/FastSpigot-Config/FastSpigot-SimpleMysql.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/FastSpigotPlugin.iml" filepath="$PROJECT_DIR$/.idea/FastSpigotPlugin.iml" />
     </modules>

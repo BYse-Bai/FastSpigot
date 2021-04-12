@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="FastSpigot-SimpleMysql" />
-        <module name="FastSpigot-Example" />
         <module name="FastSpigot" />
       </profile>
     </annotationProcessing>
