@@ -21,6 +21,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="FastSpigot" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.ow2.asm:asm:9.1" level="project" />
+    <orderEntry type="library" name="Maven: org.ow2.asm:asm:9.1" level="project" />
   </component>
 </module>
