@@ -1,9 +1,7 @@
-package cn.hyrkg.fastspigot.core.asm;
+package cn.hyrkg.fastspigot.core;
 
-import cn.hyrkg.fastspigot.asm.ASMHelper;
-import cn.hyrkg.fastspigot.asm.ByteClassLoader;
-import cn.hyrkg.fastspigot.core.FastInnerCore;
-import cn.hyrkg.fastspigot.core.service.IServiceProvider;
+import cn.hyrkg.fastspigot.core.utils.ResourceHelper;
+import cn.hyrkg.fastspigot.core.utils.ByteClassLoader;
 import jdk.internal.org.objectweb.asm.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -19,7 +17,7 @@ public class AsmInjector {
 
     @SneakyThrows
     public <T> Class<T> inject(Class<T> clazz) {
-        String urlPath = ASMHelper.getPathAsUrl(clazz);
+        String urlPath = ResourceHelper.getPathAsUrl(clazz);
         String tag = "$inject";
         String tagPath = urlPath + tag;
         String clazzName = clazz.getSimpleName();

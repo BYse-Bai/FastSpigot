@@ -1,4 +1,4 @@
-package cn.hyrkg.fastspigot.asm;
+package cn.hyrkg.fastspigot.core.utils;
 
 public class ByteClassLoader extends ClassLoader {
 

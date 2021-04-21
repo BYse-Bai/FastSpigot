@@ -1,7 +1,5 @@
 package cn.hyrkg.fastspigot.core;
 
-import cn.hyrkg.fastspigot.core.asm.AsmInjector;
-import cn.hyrkg.fastspigot.core.service.IServiceProvider;
 import lombok.Getter;
 
 public class FastInnerCore {
@@ -12,10 +10,13 @@ public class FastInnerCore {
     @Getter
     private AsmInjector asmInjector;
 
+    @Getter
+    private HandlerInjector handlerInjector;
+
     public void onEnable() {
         asmInjector = new AsmInjector(this);
+        handlerInjector = new HandlerInjector(this);
     }
-
 
 
 }
