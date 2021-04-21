@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/FastSpigot/FastSpigot.iml" filepath="$PROJECT_DIR$/FastSpigot/FastSpigot.iml" />
       <module fileurl="file://$PROJECT_DIR$/FastSpigot-Config/FastSpigot-SimpleMysql.iml" filepath="$PROJECT_DIR$/FastSpigot-Config/FastSpigot-SimpleMysql.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/FastSpigotPlugin.iml" filepath="$PROJECT_DIR$/.idea/FastSpigotPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FastSpigot-SimpleMysql/fastspigot-simplemysql.iml" filepath="$PROJECT_DIR$/FastSpigot-SimpleMysql/fastspigot-simplemysql.iml" />
     </modules>
   </component>
 </project>

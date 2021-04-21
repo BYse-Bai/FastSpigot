@@ -1,10 +1,21 @@
 package cn.hyrkg.fastspigot.core;
 
+import cn.hyrkg.fastspigot.core.asm.AsmInjector;
 import cn.hyrkg.fastspigot.core.service.IServiceProvider;
+import lombok.Getter;
 
 public class FastInnerCore {
-    public void invokeServiceImplementation(Class<? extends IServiceProvider> provider, String method, Object thisObject) {
 
+    /**
+     * 负责进行动态注入
+     */
+    @Getter
+    private AsmInjector asmInjector;
+
+    public void onEnable() {
+        asmInjector = new AsmInjector(this);
     }
+
+
 
 }

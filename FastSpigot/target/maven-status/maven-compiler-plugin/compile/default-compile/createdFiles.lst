@@ -1,0 +1,12 @@
+cn\hyrkg\fastspigot\core\annotation\events\OnHandlerCreate.class
+cn\hyrkg\fastspigot\core\service\LoggerService.class
+cn\hyrkg\fastspigot\core\FastInnerCore.class
+cn\hyrkg\fastspigot\core\annotation\InjectHandler.class
+cn\hyrkg\fastspigot\core\service\command\Command.class
+cn\hyrkg\fastspigot\core\test\PlayerHandler.class
+cn\hyrkg\fastspigot\core\annotation\events\OnHandlerDisable.class
+cn\hyrkg\fastspigot\core\service\ILogger.class
+cn\hyrkg\fastspigot\core\service\IServiceProvider.class
+cn\hyrkg\fastspigot\core\service\command\ICommandExecutor.class
+cn\hyrkg\fastspigot\core\service\command\CommandExcutorService.class
+cn\hyrkg\fastspigot\core\FastPlugin.class

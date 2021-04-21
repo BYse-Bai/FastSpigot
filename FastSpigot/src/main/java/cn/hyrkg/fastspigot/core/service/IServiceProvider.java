@@ -8,15 +8,8 @@ public interface IServiceProvider {
     /**
      * 返回当前插件域中的InnerCode,若当前方法为空,则调用会失效。
      **/
-    default Optional<FastInnerCore> getInnerCore() {
-        return Optional.empty();
+    default FastInnerCore getInnerCore() {
+        return null;
     }
-
-    /**
-     * 如果当前InnerCore注入成功，则调用执行函数。
-     **/
-    default void invokeIfInnerCoreIsPresent(Class<? extends IServiceProvider> provider, String method, Object thisObject) {
-        if (getInnerCore().isPresent())
-            getInnerCore().get().invokeServiceImplementation(provider, method, thisObject);
-    }
+    
 }
