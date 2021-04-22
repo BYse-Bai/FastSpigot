@@ -5,18 +5,15 @@ import cn.hyrkg.fastspigot.innercore.annotation.Inject;
 import lombok.SneakyThrows;
 
 public class MainClass {
+
     @Inject
-    public TestHandler testHandler;
+    public static LogHandler handler;
 
-    @SneakyThrows
+
     public static void main(String[] args) {
-        FastInnerCore fastInnerCore = new FastInnerCore(null);
+        FastInnerCore core = new FastInnerCore(null);
+        core.getHandlerInjector().handleInstance(new MainClass(), MainClass.class);
 
-        MainClass mainClass;
-        fastInnerCore.getHandlerInjector().handleInstance(mainClass = new MainClass(), MainClass.class);
-
-        mainClass.testHandler.say();
-
+        handler.testHandler.info("hahha");
     }
-
 }
