@@ -2,6 +2,7 @@ package cn.hyrkg.fastspigot.spigot;
 
 import cn.hyrkg.fastspigot.innercore.FastInnerCore;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
+import cn.hyrkg.fastspigot.spigot.service.ILogger;
 import cn.hyrkg.fastspigot.spigot.service.ILoggerService;
 import lombok.Getter;
 import org.bukkit.event.Listener;
