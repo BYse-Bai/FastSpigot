@@ -6,10 +6,6 @@ import cn.hyrkg.fastspigot.spigot.service.command.FastCommandExecutor;
 import cn.hyrkg.fastspigot.spigot.service.command.IFastCommandExecutor;
 
 public class TestHandler implements ILoggerService, IFastCommandExecutor {
-    @OnHandlerEnable
-    public void onEnable() {
-
-    }
 
     public void say() {
         FastCommandExecutor fastCommandExecutor = getImplementation(IFastCommandExecutor.class);

@@ -18,4 +18,5 @@ public class FastInnerCore {
 
     @Getter
     private final FunctionInjector functionInjector = new FunctionInjector(this);
+
 }

@@ -27,7 +27,6 @@ public class AsmInjector {
         String urlPath = ResourceHelper.getPathAsUrl(clazz);
         String tag = "$handler";
         String tagPath = urlPath + tag;
-        String clazzName = clazz.getSimpleName();
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;

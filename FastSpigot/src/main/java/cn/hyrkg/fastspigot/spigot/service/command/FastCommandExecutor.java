@@ -12,7 +12,6 @@ public class FastCommandExecutor implements IImplementation<IFastCommandExecutor
 
     @Override
     public void handleHandler(IFastCommandExecutor executor, HandlerInfo handlerInfo) {
-        System.out.println("rr1!!");
 //        FastPlugin plugin = (FastPlugin) handlerInfo.innerCore.getCreator();
 //        plugin.getCommand(executor.getCommand()).setExecutor(this);
     }

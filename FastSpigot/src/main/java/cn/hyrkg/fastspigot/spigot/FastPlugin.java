@@ -35,10 +35,10 @@ public class FastPlugin extends JavaPlugin implements ILoggerService {
 
     }
 
-    @Override
-    public void onDisable() {
-        innerCore.onDisable();
-    }
+//    @Override
+//    public void onDisable() {
+//        innerCore.onDisable();
+//    }
 
     public FastInnerCore getInnerCore() {
         return innerCore;

@@ -6,16 +6,13 @@ import cn.hyrkg.fastspigot.innercore.framework.interfaces.IImplementation;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import lombok.SneakyThrows;
 
-public class MainClass implements IImplementation {
+public class MainClass {
     @Inject
     public TestHandler testHandler;
-
-
 
     @SneakyThrows
     public static void main(String[] args) {
         FastInnerCore fastInnerCore = new FastInnerCore(null);
-        fastInnerCore.onEnable();
 
         MainClass mainClass;
         fastInnerCore.getHandlerInjector().handleInstance(mainClass = new MainClass(), MainClass.class);
@@ -24,8 +21,4 @@ public class MainClass implements IImplementation {
 
     }
 
-    @Override
-    public void handleHandler(Object object, HandlerInfo handlerInfo) {
-
-    }
 }
