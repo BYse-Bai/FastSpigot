@@ -3,10 +3,10 @@ package cn.hyrkg.fastspigot.core;
 import cn.hyrkg.fastspigot.core.annotation.InjectHandler;
 import cn.hyrkg.fastspigot.core.framework.handler.HandlerInfo;
 import cn.hyrkg.fastspigot.core.utils.ReflectHelper;
+import com.google.common.base.Preconditions;
 import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class HandlerInjector {
 
     private static HashMap<Class, HandlerInfo> handlerInfoHashMap = new HashMap<>();
 
-    public  HandlerInfo getHandlerInfo(Class handlerClass) {
+    public HandlerInfo getHandlerInfo(Class handlerClass) {
         return handlerInfoHashMap.get(handlerClass);
     }
 
@@ -33,12 +33,13 @@ public class HandlerInjector {
         for (Field field : fieldList) {
             try {
                 if (field.getType() == rawClass) {
-                    throw new RuntimeException(rawClass.getName() + ">" + field.getName() + " is same handler!");
+                    innerCore.warm(rawClass.getName() + ">" + field.getName() + " is same handler!");
+                    continue;
                 }
 
                 field.setAccessible(true);
                 //TODO read handler
-                InjectHandler injectHandler = field.getAnnotation(InjectHandler.class);
+//                InjectHandler injectHandler = field.getAnnotation(InjectHandler.class);
 
                 Object handler = innerCore.getAsmInjector().create(field.getType());
 
@@ -55,8 +56,5 @@ public class HandlerInjector {
 
             }
         }
-
-        if (parentInfo != null)
-            parentInfo.done();
     }
 }

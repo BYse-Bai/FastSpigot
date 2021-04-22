@@ -18,5 +18,8 @@ public class FastInnerCore {
         handlerInjector = new HandlerInjector(this);
     }
 
+    public void warm(String string) {
+        System.out.println(string);
+    }
 
 }
