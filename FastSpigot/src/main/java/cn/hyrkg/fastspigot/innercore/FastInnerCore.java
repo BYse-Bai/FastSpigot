@@ -18,14 +18,4 @@ public class FastInnerCore {
 
     @Getter
     private final FunctionInjector functionInjector = new FunctionInjector(this);
-
-    public void onEnable() {
-
-    }
-
-    public void onDisable() {
-
-    }
-
-
 }
