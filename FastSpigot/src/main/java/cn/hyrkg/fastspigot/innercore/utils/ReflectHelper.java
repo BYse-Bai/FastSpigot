@@ -1,7 +1,5 @@
 package cn.hyrkg.fastspigot.innercore.utils;
 
-import lombok.SneakyThrows;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -38,7 +36,7 @@ public class ReflectHelper {
         Class nearest = null;
 
         for (Class interfaceClazz : clazz.getInterfaces()) {
-            if (interfaceClazz == targetClazz) {
+            if (interfaceClazz.equals(targetClazz)) {
                 return clazz;
             }
             nearest = findNearestExtendsClass(interfaceClazz, targetClazz);

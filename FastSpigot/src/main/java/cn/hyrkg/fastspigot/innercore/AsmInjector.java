@@ -30,7 +30,6 @@ public class AsmInjector {
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;
-        AnnotationVisitor av0;
         cw.visit(52, Opcodes.ACC_PUBLIC + Opcodes.ACC_SUPER, tagPath, null, urlPath, null);
         {
             fv = cw.visitField(Opcodes.ACC_PRIVATE, "$innerCore", "L" + innerCorePath + ";", null, null);

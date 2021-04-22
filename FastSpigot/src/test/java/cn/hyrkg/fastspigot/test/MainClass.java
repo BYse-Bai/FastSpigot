@@ -2,8 +2,6 @@ package cn.hyrkg.fastspigot.test;
 
 import cn.hyrkg.fastspigot.innercore.FastInnerCore;
 import cn.hyrkg.fastspigot.innercore.annotation.Inject;
-import cn.hyrkg.fastspigot.innercore.framework.interfaces.IImplementation;
-import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import lombok.SneakyThrows;
 
 public class MainClass {

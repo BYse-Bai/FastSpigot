@@ -1,6 +1,5 @@
 package cn.hyrkg.fastspigot.test;
 
-import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerEnable;
 import cn.hyrkg.fastspigot.spigot.service.ILoggerService;
 import cn.hyrkg.fastspigot.spigot.service.command.FastCommandExecutor;
 import cn.hyrkg.fastspigot.spigot.service.command.IFastCommandExecutor;
