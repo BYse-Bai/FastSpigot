@@ -1,5 +1,6 @@
 package cn.hyrkg.fastspigot.innercore;
 
+import cn.hyrkg.fastspigot.spigot.service.ILogger;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -7,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class FastInnerCore {
 
     @Getter
-    private final Object creator;
+    private final ILogger creator;
 
     @Getter
     private final AsmInjector asmInjector = new AsmInjector(this);
@@ -26,8 +27,5 @@ public class FastInnerCore {
 
     }
 
-    public void warm(String string) {
-        System.out.println(string);
-    }
 
 }

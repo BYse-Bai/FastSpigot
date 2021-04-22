@@ -1,0 +1,7 @@
+# Auto-generated plugin.yml, generated at 2021/04/22 17:34:09 by org.bukkit.plugin.java.annotation.PluginAnnotationProcessor
+
+main: cn.hyrkg.fastspigot.example.ExamplePlugin
+name: ExamplePlugin
+version: '1'
+commands: {}
+permissions: {}

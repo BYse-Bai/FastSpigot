@@ -1,12 +1,15 @@
 package cn.hyrkg.fastspigot.innercore;
 
 import cn.hyrkg.fastspigot.innercore.utils.ResourceHelper;
-import cn.hyrkg.fastspigot.innercore.utils.ByteClassLoader;
-import jdk.internal.org.objectweb.asm.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.objectweb.asm.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class AsmInjector {
     public <T> Class<T> inject(Class<T> clazz) {
         String innerCorePath = "cn/hyrkg/fastspigot/innercore/FastInnerCore";
         String urlPath = ResourceHelper.getPathAsUrl(clazz);
-        String tag = "$inject";
+        String tag = "$handler";
         String tagPath = urlPath + tag;
         String clazzName = clazz.getSimpleName();
         ClassWriter cw = new ClassWriter(0);
@@ -74,7 +77,17 @@ public class AsmInjector {
             mv.visitEnd();
         }
         cw.visitEnd();
-        Class<T> injectedClazz = (Class<T>) ByteClassLoader.defineClass(cw.toByteArray());
+
+        FileOutputStream inputStream = new FileOutputStream(new File("E:\\asm\\myitems\\out.class"));
+        inputStream.write(cw.toByteArray());
+        inputStream.close();
+
+
+       Method method= ClassLoader.class.getDeclaredMethod("defineClass",String.class,byte[].class,int.class,int.class);
+       method.setAccessible(true);
+
+       byte[] bytes = cw.toByteArray();
+        Class<T> injectedClazz  = (Class<T>) method.invoke(clazz.getClassLoader(),null,cw.toByteArray(),0,bytes.length);
 
         injectedClassMap.put(clazz, injectedClazz);
         return injectedClazz;
