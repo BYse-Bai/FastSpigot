@@ -32,8 +32,8 @@ public class FastCommandImp implements IImplementation<IFastCommandExecutor>, Co
     public void handleHandler(IFastCommandExecutor executor, HandlerInfo handlerInfo) {
         this.executorInterface = executor;
 
-        if (handlerInfo.innerCore.getCreatorAsLogger() instanceof FastPlugin) {
-            FastPlugin plugin = (FastPlugin) handlerInfo.innerCore.getCreatorAsLogger();
+        if (handlerInfo.innerCore.getCreator() instanceof FastPlugin) {
+            FastPlugin plugin = (FastPlugin) handlerInfo.innerCore.getCreator();
             plugin.getCommand(executor.getCommand()).setExecutor(this);
 
             //todo parser commands
@@ -48,7 +48,7 @@ public class FastCommandImp implements IImplementation<IFastCommandExecutor>, Co
                 FastCommand command = method.getAnnotation(FastCommand.class);
                 CommandMethod commandInfo = new CommandMethod(command, this).readMethod(method);
                 if (commandInfo == null) {
-                    executor.getInnerCore().getCreatorAsLogger().error(executor.getClass() + " error when load command method" + method.getName() + " : wrong parameters");
+                    executor.getInnerCore().getCreator().error(executor.getClass() + " error when load command method" + method.getName() + " : wrong parameters");
                     continue;
                 }
                 commandInfoMultimap.put(command.index(), commandInfo);

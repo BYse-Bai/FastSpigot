@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 
 @RequiredArgsConstructor
 public class HandlerInfo {
@@ -20,6 +22,26 @@ public class HandlerInfo {
 
     public void addChildInfo(HandlerInfo info) {
         childInfo.add(info);
+    }
+
+
+    private HandlerInfo[] pathCache = null;
+
+    public HandlerInfo[] genPath() {
+        if (pathCache != null)
+            return pathCache;
+
+        ArrayList<HandlerInfo> list = new ArrayList<>();
+        list.add(this);
+
+        HandlerInfo head = this;
+        while (head.parentInfo != null) {
+            head = head.parentInfo;
+            list.add(head);
+        }
+        Collections.reverse(list);
+        pathCache = list.toArray(new HandlerInfo[list.size()]);
+        return pathCache;
     }
 
 }

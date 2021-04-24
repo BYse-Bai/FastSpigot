@@ -9,24 +9,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class FastPluginConfig implements IFastYamlConfig, IPluginProvider {
 
-    @Getter
-    private JavaPlugin plugin;
 
     @OnHandlerInit
     public void onFastPluginConfigInit() {
-        this.plugin = getJavaPlugin();
-        plugin.saveDefaultConfig();
+        getPlugin().saveDefaultConfig();
     }
 
 
     @Override
     public void reload() {
-        plugin.reloadConfig();
+        getPlugin().reloadConfig();
         IFastYamlConfig.super.reload();
     }
 
     @Override
     public ConfigurationSection getConfigSection() {
-        return plugin.getConfig();
+        return getPlugin().getConfig();
     }
 }

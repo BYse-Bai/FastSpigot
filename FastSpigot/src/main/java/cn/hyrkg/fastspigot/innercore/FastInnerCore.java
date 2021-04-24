@@ -1,6 +1,5 @@
 package cn.hyrkg.fastspigot.innercore;
 
-import cn.hyrkg.fastspigot.spigot.service.ILogger;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +9,7 @@ public class FastInnerCore {
     /**
      * Get creator of inner core but in logger type
      * **/
-    private final ILogger creatorAsLogger;
+    private final ICoreCreator creator;
 
     @Getter
     /**
@@ -30,7 +29,7 @@ public class FastInnerCore {
      * **/
     private final FunctionInjector functionInjector = new FunctionInjector(this);
 
-    public boolean isDebugging(Class clazz) {
-        return true;
+    public void disable() {
+        handlerInjector.onDisable();
     }
 }

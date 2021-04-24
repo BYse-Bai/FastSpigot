@@ -1,6 +1,7 @@
 package cn.hyrkg.fastspigot.innercore;
 
 import cn.hyrkg.fastspigot.innercore.annotation.Inject;
+import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerDisable;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerPostInit;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
@@ -44,7 +45,7 @@ public class HandlerInjector {
         for (Field field : fieldList) {
             try {
                 if (field.getType() == rawClass) {
-                    innerCore.getCreatorAsLogger().warm(rawClass.getName() + ">" + field.getName() + " is same handler!");
+                    innerCore.getCreator().warm(rawClass.getName() + ">" + field.getName() + " is same handler!");
                     continue;
                 }
 
@@ -66,6 +67,7 @@ public class HandlerInjector {
                 ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(field.getType(), handler, OnHandlerInit.class);
                 innerCore.getFunctionInjector().inspireHandler(handler, info);
                 ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(field.getType(), handler, OnHandlerPostInit.class);
+
             } catch (Exception exception) {
                 exception.printStackTrace();
 
@@ -75,7 +77,7 @@ public class HandlerInjector {
 
     public void onDisable() {
         handlers.forEach(j -> {
-            ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(getHandlerInfo(j.getClass()).originClass, j, OnHandlerInit.class);
+            ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(getHandlerInfo(j.getClass()).originClass, j, OnHandlerDisable.class);
         });
     }
 }

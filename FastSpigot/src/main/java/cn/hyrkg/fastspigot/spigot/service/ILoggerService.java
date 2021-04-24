@@ -9,7 +9,7 @@ public interface ILoggerService extends IServiceProvider, ILogger {
     default void info(String str) {
         String combine = locatePath();
 
-        Object creator = getInnerCore().getCreatorAsLogger();
+        Object creator = getInnerCore().getCreator();
         if (creator instanceof Plugin) {
             ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "(INFO)" + combine + ": " + str);
         } else {
@@ -21,7 +21,7 @@ public interface ILoggerService extends IServiceProvider, ILogger {
 
         String combine = locatePath();
 
-        Object creator = getInnerCore().getCreatorAsLogger();
+        Object creator = getInnerCore().getCreator();
         if (creator instanceof Plugin) {
             ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.COLOR_CHAR + "6" + "(WARM)" + combine + ": " + str);
         } else {
@@ -32,7 +32,7 @@ public interface ILoggerService extends IServiceProvider, ILogger {
     default void error(String str) {
         String combine = locatePath();
 
-        Object creator = getInnerCore().getCreatorAsLogger();
+        Object creator = getInnerCore().getCreator();
         if (creator instanceof Plugin) {
             ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.COLOR_CHAR + "c" + ChatColor.COLOR_CHAR + "l" + "(ERROR)" + combine + ": " + str);
         } else {
@@ -41,18 +41,17 @@ public interface ILoggerService extends IServiceProvider, ILogger {
     }
 
     default void debug(String str) {
-        if (getInnerCore().isDebugging(getClass()))
+        if (getInnerCore().getCreator().isDebugging(getClass()))
             error(str);
     }
 
     default String locatePath() {
         HandlerInfo info = getHandlerInfo();
-        String combine = (info.injectInfo.name().isEmpty() ? info.originClass.getSimpleName() : info.injectInfo.name());
-        HandlerInfo head = info;
-        while (head.parentInfo != null) {
-            head = head.parentInfo;
-            combine = (head.injectInfo.name().isEmpty() ? head.originClass.getSimpleName() : head.injectInfo.name()) + ">" + combine;
+        String combine = "";
+        for (HandlerInfo listInfo : info.genPath()) {
+            combine += (listInfo.injectInfo.name().isEmpty() ? listInfo.originClass.getSimpleName() : listInfo.injectInfo.name()) + ">";
         }
-        return combine;
+        combine = combine.trim();
+        return combine.substring(0, combine.length() - 1);
     }
 }
