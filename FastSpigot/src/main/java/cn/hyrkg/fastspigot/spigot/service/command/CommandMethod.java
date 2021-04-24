@@ -1,6 +1,8 @@
 package cn.hyrkg.fastspigot.spigot.service.command;
 
+import cn.hyrkg.fastspigot.spigot.i18n.i18n;
 import com.google.common.base.Preconditions;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.bukkit.command.CommandSender;
@@ -13,9 +15,11 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class CommandMethod {
     public final FastCommand commandInfo;
+    public final FastCommandExecutor executor;
     private Method loadedMethod;
 
     private Class senderClazz;
+    @Getter
     private ArrayList<Class> parameters = new ArrayList<>();
     private Class endClazz;
 
@@ -31,7 +35,7 @@ public class CommandMethod {
 
         senderClazz = method.getParameterTypes()[0];
 
-        for (int i = 0; i < (method.getParameterCount()); i++) {
+        for (int i = 0; i < (method.getParameterCount() - 1); i++) {
             Parameter parameter = method.getParameters()[1 + i];
             parameters.add(parameter.getType());
             endClazz = parameter.getType();
@@ -43,10 +47,7 @@ public class CommandMethod {
         Preconditions.checkNotNull(commandSender);
         Preconditions.checkNotNull(args);
 
-        if (!commandSender.getClass().equals(senderClazz))
-            return false;
-
-        if (endClazz.equals(String[].class))
+        if (endClazz != null && endClazz.equals(String[].class))
             return args.length >= parameters.size();
         else
             return args.length == parameters.size();
@@ -55,6 +56,11 @@ public class CommandMethod {
 
     public void handleCommandMethod(Object instance, CommandSender commandSender, String[] args) {
         ArrayList<Object> argObjList = new ArrayList<>();
+
+        if (senderClazz.equals(Player.class) && !(commandSender instanceof Player))
+            executor.throwError(null, "console cannot use this command");
+
+        argObjList.add(commandSender);
 
         int index = 0;
         for (Class clazz : parameters) {
@@ -69,19 +75,28 @@ public class CommandMethod {
             String value = args[index];
 
             if (int.class.equals(clazz) || Integer.class.equals(clazz)) {
-                argObjList.add(Integer.parseInt(value));
+                executor.tryOrThrowI18n(() -> argObjList.add(Integer.parseInt(value)), "wrong int type");
             } else if (double.class.equals(clazz) || Double.class.equals(clazz)) {
-                argObjList.add(Double.parseDouble(value));
+                executor.tryOrThrowI18n(() -> argObjList.add(Double.parseDouble(value)), "wrong double type");
             } else if (String.class.equals(clazz)) {
                 argObjList.add(value);
             }
 
-
             index += 1;
+        }
+
+
+        try {
+            loadedMethod.invoke(instance, argObjList.toArray(new Object[argObjList.size()]));
+        } catch (Exception e) {
+            executor.getExecutorInterface().handleException(e);
+            executor.throwError(e, "error when invoke command method!");
         }
     }
 
     private boolean isValidSenderClass(Class clazz) {
         return clazz.equals(CommandSender.class) || clazz.equals(Player.class);
     }
+
+
 }

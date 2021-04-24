@@ -10,5 +10,11 @@ import java.lang.annotation.Target;
 public @interface FastCommand {
     String index() default "";
 
-    boolean isOp() default false;
+    boolean requireOp() default false;
+
+    String[] paramsName() default {};
+
+    String desc();
+
+    int order() default 0;
 }

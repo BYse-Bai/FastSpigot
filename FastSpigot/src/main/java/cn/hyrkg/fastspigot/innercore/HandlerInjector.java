@@ -43,7 +43,7 @@ public class HandlerInjector {
         for (Field field : fieldList) {
             try {
                 if (field.getType() == rawClass) {
-                    innerCore.getCreator().warm(rawClass.getName() + ">" + field.getName() + " is same handler!");
+                    innerCore.getCreatorAsLogger().warm(rawClass.getName() + ">" + field.getName() + " is same handler!");
                     continue;
                 }
 

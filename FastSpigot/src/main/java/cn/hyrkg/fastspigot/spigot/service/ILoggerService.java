@@ -9,7 +9,7 @@ public interface ILoggerService extends IServiceProvider,ILogger {
     default void info(String str) {
         String combine = locatePath();
 
-        Object creator = getInnerCore().getCreator();
+        Object creator = getInnerCore().getCreatorAsLogger();
         if (creator instanceof Plugin) {
             ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "(INFO)" + combine + ": " + str);
         } else {
@@ -21,7 +21,7 @@ public interface ILoggerService extends IServiceProvider,ILogger {
 
         String combine = locatePath();
 
-        Object creator = getInnerCore().getCreator();
+        Object creator = getInnerCore().getCreatorAsLogger();
         if (creator instanceof Plugin) {
             ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.COLOR_CHAR + "6" + "(WARM)" + combine + ": " + str);
         } else {
@@ -32,7 +32,7 @@ public interface ILoggerService extends IServiceProvider,ILogger {
     default void error(String str) {
         String combine = locatePath();
 
-        Object creator = getInnerCore().getCreator();
+        Object creator = getInnerCore().getCreatorAsLogger();
         if (creator instanceof Plugin) {
             ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.COLOR_CHAR + "c" + ChatColor.COLOR_CHAR + "l" + "(ERROR)" + combine + ": " + str);
         } else {
