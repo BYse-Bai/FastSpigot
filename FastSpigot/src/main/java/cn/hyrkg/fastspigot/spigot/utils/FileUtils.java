@@ -204,7 +204,8 @@ public class FileUtils
 
 	public static class Parameter
 	{
-		public final String cmd, parm;
+		public final String cmd;
+		public final String parm;
 
 		public Parameter(String str1, String str2)
 		{

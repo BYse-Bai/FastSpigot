@@ -2,7 +2,6 @@ package cn.hyrkg.fastspigot.spigot.service.config;
 
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.innercore.framework.interfaces.IImplementation;
-import lombok.SneakyThrows;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.lang.reflect.Field;

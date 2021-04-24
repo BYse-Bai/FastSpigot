@@ -1,7 +1,6 @@
 package cn.hyrkg.fastspigot.spigot.service.config.instances;
 
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
-import cn.hyrkg.fastspigot.spigot.service.IPluginProvider;
 import cn.hyrkg.fastspigot.spigot.service.config.IFastYamlConfig;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
