@@ -1,6 +1,5 @@
 package cn.hyrkg.fastspigot.spigot.service.command;
 
-import cn.hyrkg.fastspigot.spigot.i18n.i18n;
 import com.google.common.base.Preconditions;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

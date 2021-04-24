@@ -2,7 +2,7 @@ package cn.hyrkg.fastspigot.spigot.i18n;
 
 import com.google.common.base.Preconditions;
 
-public class i18n {
+public class I18n {
     /**
      * format
      *

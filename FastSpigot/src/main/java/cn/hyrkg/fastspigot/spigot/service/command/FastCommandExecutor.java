@@ -4,7 +4,7 @@ import cn.hyrkg.fastspigot.innercore.framework.interfaces.IImplementation;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 
 import cn.hyrkg.fastspigot.spigot.FastPlugin;
-import cn.hyrkg.fastspigot.spigot.i18n.i18n;
+import cn.hyrkg.fastspigot.spigot.i18n.I18n;
 import cn.hyrkg.fastspigot.spigot.utils.MsgHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -93,14 +93,11 @@ public class FastCommandExecutor implements IImplementation<IFastCommandExecutor
             //TODO return as error msg
             genHelpInfo(executorInterface.isOp(commandSender)).forEach(j -> commandSender.sendMessage(j));
             MsgHelper.to(commandSender).warm("你输入的指令有误!请检查指令!");
+        } catch (ErrorCommand errorCommand) {
+            MsgHelper.to(commandSender).warm("执行指令错误: " + errorCommand.getErrorMsg());
         } catch (Exception e) {
-            if (e instanceof ErrorCommand) {
-                //simply send to player
-                MsgHelper.to(commandSender).warm("执行指令错误: " + ((ErrorCommand) e).getErrorMsg());
-            } else {
-                MsgHelper.to(commandSender).warm("发送了错误: " + e.getMessage());
-                executorInterface.handleException(e);
-            }
+            MsgHelper.to(commandSender).warm("发送了错误: " + e.getMessage());
+            executorInterface.handleException(e);
         }
         return false;
     }
@@ -169,7 +166,7 @@ public class FastCommandExecutor implements IImplementation<IFastCommandExecutor
     }
 
     public void tryOrThrowI18n(Runnable runnable, String wrongMsg) {
-        tryOrThrow(runnable, i18n.formatNature(wrongMsg));
+        tryOrThrow(runnable, I18n.formatNature(wrongMsg));
     }
 
     public void throwError(Exception originError, String errorInfo) {

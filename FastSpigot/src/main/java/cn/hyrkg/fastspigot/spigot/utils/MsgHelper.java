@@ -1,5 +1,6 @@
 package cn.hyrkg.fastspigot.spigot.utils;
 
+import com.google.common.base.Preconditions;
 import org.bukkit.command.CommandSender;
 
 public class MsgHelper {
@@ -42,11 +43,9 @@ public class MsgHelper {
     }
 
     public MsgHelper(CommandSender commandSender) {
-        if (commandSender == null) {
-            throw new NullPointerException("commandSender is marked non-null but is null");
-        } else {
-            this.commandSender = commandSender;
-        }
+        Preconditions.checkNotNull(commandSender);
+        this.commandSender = commandSender;
+
     }
 
     public String getPrefix() {
