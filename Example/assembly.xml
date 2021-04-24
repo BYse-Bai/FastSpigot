@@ -11,6 +11,7 @@
         <dependencySet>
             <includes>
                 <include>cn.hyrkg.fastspigot:fastspigot</include>
+                <include>cn.hyrkg.fastspigot:fastspigot-simplemysql</include>
                 <include>org.ow2.asm:asm</include>
             </includes>
 

@@ -1,6 +1,7 @@
 package cn.hyrkg.fastspigot.innercore;
 
 import cn.hyrkg.fastspigot.innercore.annotation.Inject;
+import cn.hyrkg.fastspigot.innercore.annotation.Instance;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerDisable;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerPostInit;
@@ -8,7 +9,9 @@ import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.innercore.utils.ReflectHelper;
 import lombok.RequiredArgsConstructor;
 
+import java.io.File;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +43,24 @@ public class HandlerInjector {
      **/
     public void handleInstance(Object instance, Class rawClass, HandlerInfo parentInfo) {
 
+
         List<Field> fieldList = ReflectHelper.findFieldIsAnnotated(rawClass, Inject.class);
+        List<Field> fieldInstanceList = ReflectHelper.findFieldIsAnnotated(rawClass, Instance.class);
+        for (Field field : fieldInstanceList) {
+            try {
+
+                if (field.getType().equals(rawClass)) {
+                    field.setAccessible(true);
+                    if (Modifier.isStatic(field.getModifiers()))
+                        field.set(null, instance);
+                    else
+                        field.set(instance, instance);
+                }
+            } catch (Exception exception) {
+                exception.printStackTrace();
+
+            }
+        }
 
         for (Field field : fieldList) {
             try {

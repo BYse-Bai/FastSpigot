@@ -3,6 +3,7 @@ package cn.hyrkg.fastspigot.example;
 
 import cn.hyrkg.fastspigot.example.cmd.CommandExample;
 import cn.hyrkg.fastspigot.example.config.TestConfig;
+import cn.hyrkg.fastspigot.example.mysql.MysqlHandler;
 import cn.hyrkg.fastspigot.innercore.annotation.Inject;
 import cn.hyrkg.fastspigot.spigot.FastPlugin;
 import org.bukkit.plugin.java.annotation.command.Command;
@@ -17,6 +18,9 @@ public class ExamplePlugin extends FastPlugin {
 
     @Inject(name = "配置测试")
     public static TestConfig testConfig;
+
+    @Inject
+    public static MysqlHandler mysqlHandler;
 
     @Override
     public String getPluginName() {
