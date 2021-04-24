@@ -7,6 +7,8 @@ import cn.hyrkg.fastspigot.innercore.framework.interfaces.IServiceProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.function.BiConsumer;
 
@@ -28,7 +30,19 @@ public class FunctionInjector {
     public void inspireHandler(Object handler, HandlerInfo handlerInfo) {
         //TODO 查看接口实现，并对接实现
         Class clazz = handlerInfo.originClass;
-        for (Class interfaceClazz : clazz.getInterfaces()) {
+
+        ArrayList<Class> interfaces = new ArrayList<>();
+
+        interfaces.addAll(Arrays.asList(clazz.getInterfaces()));
+        //find extends interfaces
+        Class superClazz = clazz;
+        while (superClazz.getSuperclass() != null && !superClazz.getSuperclass().equals(Object.class)) {
+            superClazz = superClazz.getSuperclass();
+            interfaces.addAll(Arrays.asList(superClazz.getInterfaces()));
+        }
+
+        //load interfaces
+        for (Class interfaceClazz : interfaces) {
             if (interfaceClazz.isAnnotationPresent(ImpService.class)) {
                 ImpService impService = (ImpService) interfaceClazz.getAnnotation(ImpService.class);
                 IImplementation implementation = impService.impClass().newInstance();

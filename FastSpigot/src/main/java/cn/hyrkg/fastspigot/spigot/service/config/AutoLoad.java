@@ -1,11 +1,15 @@
-package cn.hyrkg.fastspigot.innercore.annotation.events;
+package cn.hyrkg.fastspigot.spigot.service.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.METHOD)
+@Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface OnHandlerEnable {
+public @interface AutoLoad {
+    String path() default "";
+
+    String name() default "";
+
 }

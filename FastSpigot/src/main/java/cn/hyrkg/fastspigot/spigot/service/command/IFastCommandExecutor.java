@@ -6,7 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@ImpService(impClass = FastCommandExecutor.class)
+@ImpService(impClass = FastCommandImp.class)
 public interface IFastCommandExecutor extends IServiceProvider {
 
 
@@ -27,7 +27,7 @@ public interface IFastCommandExecutor extends IServiceProvider {
     default Player checkPlayer(String playerName) {
         Player player = Bukkit.getPlayer(playerName);
         if (player == null)
-            ((FastCommandExecutor) getImplementation(IFastCommandExecutor.class)).throwError(null, playerName + "不在线!");
+            ((FastCommandImp) getImplementation(IFastCommandExecutor.class)).throwError(null, playerName + "不在线!");
         return player;
     }
     

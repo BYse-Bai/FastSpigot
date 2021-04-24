@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class CommandMethod {
     public final FastCommand commandInfo;
-    public final FastCommandExecutor executor;
+    public final FastCommandImp executor;
     private Method loadedMethod;
 
     private Class senderClazz;

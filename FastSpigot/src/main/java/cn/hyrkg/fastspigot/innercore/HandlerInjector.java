@@ -1,7 +1,8 @@
 package cn.hyrkg.fastspigot.innercore;
 
 import cn.hyrkg.fastspigot.innercore.annotation.Inject;
-import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerEnable;
+import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
+import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerPostInit;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.innercore.utils.ReflectHelper;
 import lombok.RequiredArgsConstructor;
@@ -49,21 +50,22 @@ public class HandlerInjector {
 
                 field.setAccessible(true);
                 //TODO read handler
-//                InjectHandler injectHandler = field.getAnnotation(InjectHandler.class);
+                Inject injectInfo = field.getAnnotation(Inject.class);
 
                 Object handler = innerCore.getAsmInjector().createWithInjection(field.getType());
 
                 field.set(instance, handler);
 
-                HandlerInfo info = new HandlerInfo(innerCore, parentInfo, field.getType(), handler.getClass(), handler);
+                HandlerInfo info = new HandlerInfo(injectInfo, innerCore, parentInfo, field.getType(), handler.getClass(), handler);
                 handlerInfoHashMap.put(handler.getClass(), info);
                 if (parentInfo != null)
                     parentInfo.addChildInfo(info);
 
                 handlers.add(handler);
                 handleInstance(handler, field.getType(), info);
+                ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(field.getType(), handler, OnHandlerInit.class);
                 innerCore.getFunctionInjector().inspireHandler(handler, info);
-                ReflectHelper.findAndInvokeMethodIsAnnotated(field.getType(), handler, OnHandlerEnable.class);
+                ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(field.getType(), handler, OnHandlerPostInit.class);
             } catch (Exception exception) {
                 exception.printStackTrace();
 
@@ -73,7 +75,7 @@ public class HandlerInjector {
 
     public void onDisable() {
         handlers.forEach(j -> {
-            ReflectHelper.findAndInvokeMethodIsAnnotated(getHandlerInfo(j.getClass()).originClass, j, OnHandlerEnable.class);
+            ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(getHandlerInfo(j.getClass()).originClass, j, OnHandlerInit.class);
         });
     }
 }

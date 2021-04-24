@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class FastInnerCore {
-
     @Getter
     /**
      * Get creator of inner core but in logger type
@@ -31,4 +30,7 @@ public class FastInnerCore {
      * **/
     private final FunctionInjector functionInjector = new FunctionInjector(this);
 
+    public boolean isDebugging(Class clazz) {
+        return true;
+    }
 }

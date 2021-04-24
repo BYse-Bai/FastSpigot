@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FastCommandExecutor implements IImplementation<IFastCommandExecutor>, CommandExecutor {
+public class FastCommandImp implements IImplementation<IFastCommandExecutor>, CommandExecutor {
 
     @Getter
     private IFastCommandExecutor executorInterface;
@@ -96,8 +96,8 @@ public class FastCommandExecutor implements IImplementation<IFastCommandExecutor
         } catch (ErrorCommand errorCommand) {
             MsgHelper.to(commandSender).warm("执行指令错误: " + errorCommand.getErrorMsg());
         } catch (Exception e) {
-            MsgHelper.to(commandSender).warm("发送了错误: " + e.getMessage());
             executorInterface.handleException(e);
+            MsgHelper.to(commandSender).warm("发生了错误: " + e.getMessage());
         }
         return false;
     }

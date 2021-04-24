@@ -31,6 +31,15 @@ public class ReflectHelper {
         });
     }
 
+    public static void findAndInvokeMethodIsAnnotatedSupered(Class clazz, Object instance, Class<? extends Annotation> annotation) {
+        if (clazz == null || clazz.equals(Object.class))
+            return;
+        if (clazz.getSuperclass() != null)
+            findAndInvokeMethodIsAnnotatedSupered(clazz.getSuperclass(), instance, annotation);
+        findAndInvokeMethodIsAnnotated(clazz, instance, annotation);
+
+    }
+
     public static Class findNearestExtendsClass(Class clazz, Class targetClazz) {
 
         Class nearest = null;

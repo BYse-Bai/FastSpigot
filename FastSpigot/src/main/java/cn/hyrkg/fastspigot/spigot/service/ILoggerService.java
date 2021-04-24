@@ -5,7 +5,7 @@ import cn.hyrkg.fastspigot.innercore.framework.interfaces.IServiceProvider;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 
-public interface ILoggerService extends IServiceProvider,ILogger {
+public interface ILoggerService extends IServiceProvider, ILogger {
     default void info(String str) {
         String combine = locatePath();
 
@@ -40,14 +40,18 @@ public interface ILoggerService extends IServiceProvider,ILogger {
         }
     }
 
+    default void debug(String str) {
+        if (getInnerCore().isDebugging(getClass()))
+            error(str);
+    }
+
     default String locatePath() {
         HandlerInfo info = getHandlerInfo();
-
-        String combine = info.originClass.getSimpleName();
+        String combine = (info.injectInfo.name().isEmpty() ? info.originClass.getSimpleName() : info.injectInfo.name());
         HandlerInfo head = info;
         while (head.parentInfo != null) {
             head = head.parentInfo;
-            combine = head.originClass.getSimpleName() + ">" + combine;
+            combine = (head.injectInfo.name().isEmpty() ? head.originClass.getSimpleName() : head.injectInfo.name()) + ">" + combine;
         }
         return combine;
     }
