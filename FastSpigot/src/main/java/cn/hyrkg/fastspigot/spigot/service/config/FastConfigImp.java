@@ -23,31 +23,40 @@ public class FastConfigImp implements IImplementation<IFastYamlConfig> {
     private void parserFields(IFastYamlConfig object, HandlerInfo handlerInfo) {
         ConfigurationSection section = object.getConfigSection();
 
-        for (Field field : handlerInfo.originClass.getDeclaredFields()) {
-            try {
-                if (field.isAnnotationPresent(AutoLoad.class)) {
-                    AutoLoad autoLoadInfo = field.getAnnotation(AutoLoad.class);
-                    String path = autoLoadInfo.path();
-                    String name = autoLoadInfo.name().isEmpty() ? field.getName() : autoLoadInfo.name();
-                    String combinePath = path + "." + name;
-                    combinePath = combinePath.trim();
-
-                    field.setAccessible(true);
-                    if (section.contains(combinePath)) {
-                        field.setAccessible(true);
-                        if (Modifier.isStatic(field.getModifiers()))
-                            field.set(null, readInfo(combinePath, section, field));
-                        else
-                            field.set(object, readInfo(combinePath, section, field));
-                    }
-                }
-            } catch (ErrorAutoloadException autoloadException) {
-                object.error("读取配置错误: " + autoloadException.errorMessage);
-            } catch (Exception exception) {
-                exception.printStackTrace();
-                object.error("发生了错误: " + exception.getMessage());
-            }
+        ArrayList<Class> clazzIncludeSuper = new ArrayList<>();
+        clazzIncludeSuper.add(handlerInfo.originClass);
+        Class superClazz = handlerInfo.originClass;
+        while (superClazz.getSuperclass() != null && !superClazz.equals(Object.class)) {
+            superClazz = superClazz.getSuperclass();
+            clazzIncludeSuper.add(superClazz);
         }
+
+        for (Class clazz : clazzIncludeSuper)
+            for (Field field : clazz.getDeclaredFields()) {
+                try {
+                    if (field.isAnnotationPresent(AutoLoad.class)) {
+                        AutoLoad autoLoadInfo = field.getAnnotation(AutoLoad.class);
+                        String path = autoLoadInfo.path();
+                        String name = autoLoadInfo.name().isEmpty() ? field.getName() : autoLoadInfo.name();
+                        String combinePath = (path.isEmpty() ? "" : path + ".") + name;
+                        combinePath = combinePath.trim();
+
+                        field.setAccessible(true);
+                        if (section.contains(combinePath)) {
+                            field.setAccessible(true);
+                            if (Modifier.isStatic(field.getModifiers()))
+                                field.set(null, readInfo(combinePath, section, field));
+                            else
+                                field.set(object, readInfo(combinePath, section, field));
+                        }
+                    }
+                } catch (ErrorAutoloadException autoloadException) {
+                    object.error("读取配置错误: " + autoloadException.errorMessage);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    object.error("发生了错误: " + exception.getMessage());
+                }
+            }
     }
 
     private Object readInfo(String path, ConfigurationSection configurationSection, Field field) {

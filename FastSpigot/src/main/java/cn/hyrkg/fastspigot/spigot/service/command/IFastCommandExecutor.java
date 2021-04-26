@@ -10,10 +10,10 @@ import org.bukkit.entity.Player;
 public interface IFastCommandExecutor extends IServiceProvider {
 
 
-    String getCommand();
+    String[] getCommands();
 
     default String getCmdDescription() {
-        return getCommand();
+        return getCommands()[0];
     }
 
     default void handleException(Exception e) {
@@ -30,6 +30,6 @@ public interface IFastCommandExecutor extends IServiceProvider {
             ((FastCommandImp) getImplementation(IFastCommandExecutor.class)).throwError(null, playerName + "不在线!");
         return player;
     }
-    
+
 
 }

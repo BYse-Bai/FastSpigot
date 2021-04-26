@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 public class MysqlHandler extends FastMysqlHandler {
 
     @Instance
-    @Getter
     private static MysqlHandler instance;
 
     @AutoLoad

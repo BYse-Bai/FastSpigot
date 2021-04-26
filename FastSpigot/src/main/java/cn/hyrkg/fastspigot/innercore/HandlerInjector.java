@@ -7,6 +7,7 @@ import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerPostInit;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.innercore.utils.ReflectHelper;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.io.File;
@@ -23,8 +24,12 @@ import java.util.List;
 public class HandlerInjector {
     public final FastInnerCore innerCore;
 
-    private static ArrayList<Object> handlers = new ArrayList<>();
-    private static HashMap<Class, HandlerInfo> handlerInfoHashMap = new HashMap<>();
+    @Getter
+    private ArrayList<Object> handlers = new ArrayList<>();
+    private HashMap<Class, HandlerInfo> handlerInfoHashMap = new HashMap<>();
+
+    @Getter
+    private HashMap<HandlerInfo, Long> handlerInjectCost = new HashMap<>();
 
     public HandlerInfo getHandlerInfo(Class handlerClass) {
         return handlerInfoHashMap.get(handlerClass);
@@ -69,6 +74,8 @@ public class HandlerInjector {
                     continue;
                 }
 
+                long timeBefore = System.currentTimeMillis();
+
                 field.setAccessible(true);
                 //TODO read handler
                 Inject injectInfo = field.getAnnotation(Inject.class);
@@ -88,6 +95,8 @@ public class HandlerInjector {
                 innerCore.getFunctionInjector().inspireHandler(handler, info);
                 ReflectHelper.findAndInvokeMethodIsAnnotatedSupered(field.getType(), handler, OnHandlerPostInit.class);
 
+                long timeCost = System.currentTimeMillis() - timeBefore;
+                handlerInjectCost.put(info, timeCost);
             } catch (Exception exception) {
                 exception.printStackTrace();
 

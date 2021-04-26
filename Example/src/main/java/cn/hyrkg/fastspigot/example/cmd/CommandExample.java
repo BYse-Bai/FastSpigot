@@ -19,7 +19,7 @@ public class CommandExample implements IFastCommandExecutor {
         sender.sendMessage("" + Arrays.asList(strings));
     }
 
-    public String getCommand() {
-        return "example";
+    public String[] getCommands() {
+        return new String[]{"example"};
     }
 }

@@ -34,7 +34,9 @@ public class FastCommandImp implements IImplementation<IFastCommandExecutor>, Co
 
         if (handlerInfo.innerCore.getCreator() instanceof FastPlugin) {
             FastPlugin plugin = (FastPlugin) handlerInfo.innerCore.getCreator();
-            plugin.getCommand(executor.getCommand()).setExecutor(this);
+
+            for (String cmd : executor.getCommands())
+                plugin.getCommand(cmd).setExecutor(this);
 
             //todo parser commands
             parserCommands(executor, handlerInfo);
@@ -138,7 +140,7 @@ public class FastCommandImp implements IImplementation<IFastCommandExecutor>, Co
     }
 
     public String genHelpInfoOfCommandMethod(CommandMethod commandMethod) {
-        String cmd = "/" + executorInterface.getCommand() + " " + commandMethod.commandInfo.index();
+        String cmd = "/" + executorInterface.getCommands()[0] + " " + commandMethod.commandInfo.index();
         cmd = cmd.trim();
 
         int index = 0;

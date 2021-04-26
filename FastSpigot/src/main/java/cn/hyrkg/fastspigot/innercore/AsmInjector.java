@@ -8,6 +8,7 @@ import org.objectweb.asm.*;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -23,9 +24,12 @@ public class AsmInjector {
      * 针对传入的类，注入核心的获取代码，并保存到map中
      * **/
     public <T> Class<T> inject(Class<T> clazz) {
+        if (injectedClassMap.containsKey(clazz))
+            return (Class<T>) injectedClassMap.get(clazz);
+
         String innerCorePath = "cn/hyrkg/fastspigot/innercore/FastInnerCore";
         String urlPath = ResourceHelper.getPathAsUrl(clazz);
-        String tag = "$handler";
+        String tag = "$handler" + "$" + innerCore.getCreator().getClass().getSimpleName();
         String tagPath = urlPath + tag;
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
@@ -81,11 +85,21 @@ public class AsmInjector {
         inputStream.close();
 
 
-       Method method= ClassLoader.class.getDeclaredMethod("defineClass",String.class,byte[].class,int.class,int.class);
-       method.setAccessible(true);
+        Class<T> injectedClazz = null;
+//        try {
+//            injectedClazz = (Class<T>) Class.forName(tagPath);
+//        } catch (ClassNotFoundException e) {
+//            injectedClazz = null;
+//        }
 
-       byte[] bytes = cw.toByteArray();
-        Class<T> injectedClazz  = (Class<T>) method.invoke(clazz.getClassLoader(),null,cw.toByteArray(),0,bytes.length);
+
+        if (injectedClazz == null) {
+            Method method = ClassLoader.class.getDeclaredMethod("defineClass", String.class, byte[].class, int.class, int.class);
+            method.setAccessible(true);
+
+            byte[] bytes = cw.toByteArray();
+            injectedClazz = (Class<T>) method.invoke(clazz.getClassLoader(), null, cw.toByteArray(), 0, bytes.length);
+        }
 
         injectedClassMap.put(clazz, injectedClazz);
         return injectedClazz;

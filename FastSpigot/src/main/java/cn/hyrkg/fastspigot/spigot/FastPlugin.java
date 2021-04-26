@@ -6,10 +6,13 @@ import cn.hyrkg.fastspigot.innercore.annotation.Inject;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.spigot.service.ILoggerService;
 import lombok.Getter;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class FastPlugin extends JavaPlugin implements ICoreCreator, ILoggerService {
 
@@ -47,9 +50,23 @@ public class FastPlugin extends JavaPlugin implements ICoreCreator, ILoggerServi
                 getServer().getPluginManager().registerEvents((Listener) j, this);
         });
 
+        long injectBefore = System.currentTimeMillis();
         warm("注入处理器中...");
         innerCore.getHandlerInjector().handleInstance(this, FastPlugin.class, thisInfo);
         innerCore.getHandlerInjector().handleInstance(this, getClass(), thisInfo);
+        ArrayList<HandlerInfo> handlerInfos = new ArrayList<>();
+        handlerInfos.addAll(innerCore.getHandlerInjector().getHandlerInjectCost().keySet());
+        Collections.sort(handlerInfos,
+                (j, k) -> innerCore.getHandlerInjector().getHandlerInjectCost().get(k).compareTo(innerCore.getHandlerInjector().getHandlerInjectCost().get(j)));
+        int length = handlerInfos.size() > 3 ? 3 : handlerInfos.size();
+        for (int i = 0; i < length; i++) {
+            HandlerInfo info = handlerInfos.get(i);
+            warm(ChatColor.RESET + " - " + info.getShortClassPath() + " > " + innerCore.getHandlerInjector().getHandlerInjectCost().get(info) + "ms");
+        }
+        if (handlerInfos.size() > 3) {
+            warm(ChatColor.RESET + " ......");
+        }
+        warm("注入结束,共注入了" + innerCore.getHandlerInjector().getHandlers().size() + "个处理器! (" + (System.currentTimeMillis() - injectBefore) + "ms)");
 
         warm("加载完毕! (" + (System.currentTimeMillis() - timeStart) + "ms)");
 

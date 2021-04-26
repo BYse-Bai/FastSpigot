@@ -44,4 +44,16 @@ public class HandlerInfo {
         return pathCache;
     }
 
+    public String getShortClassPath() {
+        String[] args = originClass.getTypeName().split("\\.");
+        String combine = "";
+        for (int i = 0; i < args.length; i++) {
+            if (i + 1 >= args.length)
+                combine += args[i];
+            else
+                combine += args[i].substring(0, 1) + ".";
+        }
+        return combine;
+    }
+
 }
