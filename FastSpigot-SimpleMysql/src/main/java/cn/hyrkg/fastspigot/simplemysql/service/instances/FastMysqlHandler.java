@@ -21,15 +21,15 @@ public abstract class FastMysqlHandler implements ISimpleMysql, IFastYamlConfig,
 
     public final String poolName;
 
-    @AutoLoad
-    public String table = "defaultLabel";
-    @AutoLoad
-    public String url = "localhost:3306/yourDatabase";
-    @AutoLoad
-    public String user = "root";
-    @AutoLoad
-    public String pwd = "";
 
+    @AutoLoad
+    protected String url = "localhost:3306/yourDatabase";
+    @AutoLoad
+    protected String user = "root";
+    @AutoLoad
+    protected String pwd = "";
+    @AutoLoad
+    protected String table = "defaultTable";
 
     private ConfigurationSection configurationSection;
     @Getter
