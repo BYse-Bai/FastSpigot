@@ -41,8 +41,20 @@ public interface ILoggerService extends IServiceProvider, ILogger {
     }
 
     default void debug(String str) {
-        if (getInnerCore().getCreator().isDebugging(getClass()))
-            error(str);
+        if (isDebugging()) {
+            String combine = locatePath();
+
+            Object creator = getInnerCore().getCreator();
+            if (creator instanceof Plugin) {
+                ((Plugin) creator).getServer().getConsoleSender().sendMessage(ChatColor.COLOR_CHAR + "4" + ChatColor.COLOR_CHAR + "l" + "(!DEBUG!)" + combine + ": " + str);
+            } else {
+                System.out.println(combine + ": " + str);
+            }
+        }
+    }
+
+    default boolean isDebugging() {
+        return getInnerCore().getCreator().isDebugging(getClass());
     }
 
     default String locatePath() {

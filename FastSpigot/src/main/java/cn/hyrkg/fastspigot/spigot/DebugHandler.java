@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DebugHandler implements IPluginProvider, ILoggerService {
@@ -18,6 +19,8 @@ public class DebugHandler implements IPluginProvider, ILoggerService {
     private File debugFile = null;
 
     private ArrayList<String> debugList = new ArrayList<>();
+    private ArrayList<String> lastDebugList = null;
+    private HashMap<Class, Boolean> resultCacheMap = new HashMap<>();
 
     @OnHandlerInit
     @SneakyThrows
@@ -68,6 +71,16 @@ public class DebugHandler implements IPluginProvider, ILoggerService {
     public boolean isDebugging(Class clazz) {
         if (globalDebug)
             return true;
+        if (lastDebugList == null || lastDebugList != debugList) {
+            resultCacheMap.clear();
+            lastDebugList = debugList;
+        }
+
+        if (resultCacheMap.containsKey(clazz))
+            return resultCacheMap.get(clazz);
+
+        boolean result = false;
+
         HandlerInfo handlerInfo = getInnerCore().getHandlerInjector().getHandlerInfo(clazz);
         if (handlerInfo == null)
             return debugList.contains(clazz.getSimpleName());
@@ -79,14 +92,15 @@ public class DebugHandler implements IPluginProvider, ILoggerService {
                     combine += pathInfo[k].originClass.getSimpleName() + ".";
                 }
                 if (debugList.contains(combine + "*"))
-                    return true;
+                    result = true;
                 combine = combine.trim();
                 combine = combine.substring(0, combine.length() - 1);
                 if (debugList.contains(combine))
-                    return true;
+                    result = true;
             }
         }
-        return false;
+        resultCacheMap.put(clazz, result);
+        return result;
     }
 
     public void reload() {
