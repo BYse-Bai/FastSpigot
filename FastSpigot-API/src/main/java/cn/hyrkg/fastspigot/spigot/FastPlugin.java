@@ -16,6 +16,8 @@ import java.util.Collections;
 
 public class FastPlugin extends JavaPlugin implements ICoreCreator, ILoggerService {
 
+    public static final int TIME_COST_LIST_AMOUNT = 5;
+
     @Getter
     private FastInnerCore innerCore;//主要的核心
 
@@ -55,17 +57,20 @@ public class FastPlugin extends JavaPlugin implements ICoreCreator, ILoggerServi
         innerCore.getHandlerInjector().handleInstance(this, FastPlugin.class, thisInfo);
         innerCore.getHandlerInjector().handleInstance(this, getClass(), thisInfo);
         ArrayList<HandlerInfo> handlerInfos = new ArrayList<>();
+
+        //print time cost
         handlerInfos.addAll(innerCore.getHandlerInjector().getHandlerInjectCost().keySet());
         Collections.sort(handlerInfos,
                 (j, k) -> innerCore.getHandlerInjector().getHandlerInjectCost().get(k).compareTo(innerCore.getHandlerInjector().getHandlerInjectCost().get(j)));
-        int length = handlerInfos.size() > 3 ? 3 : handlerInfos.size();
+        int length = handlerInfos.size() > TIME_COST_LIST_AMOUNT ? TIME_COST_LIST_AMOUNT : handlerInfos.size();
         for (int i = 0; i < length; i++) {
             HandlerInfo info = handlerInfos.get(i);
             warm(ChatColor.RESET + " - " + info.getShortClassPath() + " > " + innerCore.getHandlerInjector().getHandlerInjectCost().get(info) + "ms");
         }
-        if (handlerInfos.size() > 3) {
+        if (handlerInfos.size() > TIME_COST_LIST_AMOUNT) {
             warm(ChatColor.RESET + " ......");
         }
+
         warm("注入结束,共注入了" + innerCore.getHandlerInjector().getHandlers().size() + "个处理器! (" + (System.currentTimeMillis() - injectBefore) + "ms)");
 
         warm("加载完毕! (" + (System.currentTimeMillis() - timeStart) + "ms)");

@@ -1,10 +1,11 @@
 package cn.hyrkg.fastspigot.spigot.service;
 
 import cn.hyrkg.fastspigot.innercore.framework.interfaces.IServiceProvider;
+import cn.hyrkg.fastspigot.spigot.FastPlugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public interface IPluginProvider extends IServiceProvider {
-    default JavaPlugin getPlugin() {
-        return (JavaPlugin) getInnerCore().getCreator();
+    default FastPlugin getPlugin() {
+        return (FastPlugin) getInnerCore().getCreator();
     }
 }
