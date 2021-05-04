@@ -16,6 +16,9 @@ public class HandlerInfo {
     public final Class<?> originClass;
     public final Class<?> injectedClass;
     public final Object object;
+
+    private HandlerInfo[] pathCache = null;
+
     @Getter
     private final ArrayList<HandlerInfo> childInfo = new ArrayList<>();
 
@@ -23,8 +26,6 @@ public class HandlerInfo {
         childInfo.add(info);
     }
 
-
-    private HandlerInfo[] pathCache = null;
 
     public HandlerInfo[] genPath() {
         if (pathCache != null)

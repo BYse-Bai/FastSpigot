@@ -29,10 +29,8 @@ public abstract class EasyGui {
         return viewer;
     }
 
-    public boolean isInv(Inventory CInv) {
-        if (inv.equals(CInv))
-            return true;
-        return false;
+    public boolean isInv(Inventory compareInv) {
+        return inv.equals(compareInv);
     }
 
     public void display() {

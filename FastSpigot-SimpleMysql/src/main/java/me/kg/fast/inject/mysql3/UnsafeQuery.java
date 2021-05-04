@@ -1,16 +1,16 @@
-package me.kg.fast.inject.mysql2_2;
+package me.kg.fast.inject.mysql3;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UnsafeQuery {
-    private static me.kg.fast.inject.mysql2_2.SimpleMysqlPool globalPool = null;
+    private static SimpleMysqlPool globalPool = null;
 
     private final String mysql;
-    protected me.kg.fast.inject.mysql2_2.SimpleMysqlPool selfPool = null;
+    protected SimpleMysqlPool selfPool = null;
     private PreparedStatement preparedStatement;
-    private me.kg.fast.inject.mysql2_2.ReleasableConnection connection;
+    private ReleasableConnection connection;
 
 
     public UnsafeQuery(String mysql) throws Exception {
@@ -18,20 +18,20 @@ public class UnsafeQuery {
         prepareMysql();
     }
 
-    public UnsafeQuery(String mysql, me.kg.fast.inject.mysql2_2.SimpleMysqlPool pool) throws Exception {
+    public UnsafeQuery(String mysql, SimpleMysqlPool pool) throws Exception {
         this.mysql = mysql;
         this.selfPool = pool;
         prepareMysql();
     }
 
-    public me.kg.fast.inject.mysql2_2.SimpleMysqlPool getUsingPool() {
+    public SimpleMysqlPool getUsingPool() {
         return selfPool == null ? globalPool : selfPool;
     }
 
 
     protected void prepareMysql() throws Exception {
         if (getUsingPool() == null)
-            throw new Exception("Empty Pool Setting");
+            throw new MysqlException("Empty Pool Setting");
         preparedStatement = (connection = getUsingPool().getConnection()).prepareStatement(mysql);
     }
 

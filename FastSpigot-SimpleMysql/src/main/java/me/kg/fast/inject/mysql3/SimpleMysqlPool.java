@@ -1,4 +1,4 @@
-package me.kg.fast.inject.mysql2_2;
+package me.kg.fast.inject.mysql3;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,9 @@ import java.util.TimerTask;
 public class SimpleMysqlPool {
 
     private Timer connectionKeeper = null;
-
+    private int poolSize = 0;
+    private List<ReleasableConnection> createdConnection = new ArrayList<ReleasableConnection>();
+    private List<ReleasableConnection> connectionPool = new ArrayList<ReleasableConnection>();
 
     public static SimpleMysqlPool init(int size) {
         SimpleMysqlPool pool = new SimpleMysqlPool(size);
@@ -32,10 +34,6 @@ public class SimpleMysqlPool {
         return pool;
     }
 
-    private int poolSize = 0;
-    private List<ReleasableConnection> createdConnection = new ArrayList<ReleasableConnection>();
-    private List<ReleasableConnection> connectionPool = new ArrayList<ReleasableConnection>();
-
 
     private SimpleMysqlPool(int size) {
         this.poolSize = size;
@@ -54,13 +52,13 @@ public class SimpleMysqlPool {
 
     public SimpleMysqlPool connect(String url, String user, String password) {
         closePool();
-
+        String tempUrl = url;
         try {
-            if (!url.contains("jdbc:mysql://")) {
-                url = "jdbc:mysql://" + url;
+            if (!tempUrl.contains("jdbc:mysql://")) {
+                tempUrl = "jdbc:mysql://" + tempUrl;
             }
             for (int i = 0; i < poolSize; i++) {
-                Connection connection = DriverManager.getConnection(url, user, password);
+                Connection connection = DriverManager.getConnection(tempUrl, user, password);
                 createdConnection.add(ReleasableConnection.link(this, connection));
             }
             connectionPool.addAll(createdConnection);

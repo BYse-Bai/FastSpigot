@@ -9,7 +9,7 @@ import cn.hyrkg.fastspigot.spigot.service.simplemysql.ISimpleMysql;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import me.kg.fast.inject.mysql2_2.SimpleMysqlPool;
+import me.kg.fast.inject.mysql3.SimpleMysqlPool;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

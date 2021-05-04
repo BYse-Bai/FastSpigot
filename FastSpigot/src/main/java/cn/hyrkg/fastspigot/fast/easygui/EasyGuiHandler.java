@@ -16,13 +16,14 @@ public class EasyGuiHandler implements Listener
 {
 	private static EasyGuiHandler instance = null;
 
+	private static ArrayList<EasyGui> guis = new ArrayList<>();
+	private static ArrayList<TickGui> tickGuis = new ArrayList<>();
+
+
 	private EasyGuiHandler()
 	{
 
 	}
-
-	private static ArrayList<EasyGui> guis = new ArrayList<>();
-	private static ArrayList<TickGui> tickGuis = new ArrayList<>();
 
 	public static void init(Plugin plugin)
 	{

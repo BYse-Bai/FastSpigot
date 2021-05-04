@@ -4,6 +4,7 @@ import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
 import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.spigot.service.ILoggerService;
 import cn.hyrkg.fastspigot.spigot.service.IPluginProvider;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 public class DebugHandler implements IPluginProvider, ILoggerService {
 
     private boolean globalDebug = false;
+    @Getter
     private File debugFile = null;
 
     private ArrayList<String> debugList = new ArrayList<>();
@@ -32,7 +34,7 @@ public class DebugHandler implements IPluginProvider, ILoggerService {
         if (!getPlugin().getDataFolder().exists())
             getPlugin().getDataFolder().mkdirs();
 
-        debugFile = new File(getPlugin().getDataFolder(), "debug.yml");
+        File debugFile = new File(getPlugin().getDataFolder(), "debug.yml");
         if (!debugFile.exists()) {
             debugFile.createNewFile();
             FileConfiguration defCfg = YamlConfiguration.loadConfiguration(debugFile);
@@ -70,7 +72,7 @@ public class DebugHandler implements IPluginProvider, ILoggerService {
     public boolean isDebugging(Class clazz) {
         if (globalDebug)
             return true;
-        if (lastDebugList == null || lastDebugList != debugList) {
+        if (lastDebugList == null || !lastDebugList.equals(debugList)) {
             resultCacheMap.clear();
             lastDebugList = debugList;
         }
