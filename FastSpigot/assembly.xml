@@ -10,6 +10,9 @@
     <dependencySets>
         <dependencySet>
             <includes>
+                <include>org.ow2.asm:asm</include>
+                <include>cn.hyrkg.fastspigot:fastspigot-api</include>
+                <include>cn.hyrkg.fastspigot:fastspigot-simplemysql</include>
             </includes>
 
             <outputDirectory>/</outputDirectory>

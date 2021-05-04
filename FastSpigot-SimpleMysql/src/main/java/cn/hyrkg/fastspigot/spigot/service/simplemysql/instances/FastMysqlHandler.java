@@ -1,7 +1,7 @@
-package cn.hyrkg.fastspigot.simplemysql.service.instances;
+package cn.hyrkg.fastspigot.spigot.service.simplemysql.instances;
 
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
-import cn.hyrkg.fastspigot.simplemysql.service.ISimpleMysql;
+import cn.hyrkg.fastspigot.spigot.service.simplemysql.ISimpleMysql;
 import cn.hyrkg.fastspigot.spigot.service.IPluginProvider;
 import cn.hyrkg.fastspigot.spigot.service.config.AutoLoad;
 import cn.hyrkg.fastspigot.spigot.service.config.FastConfigImp;

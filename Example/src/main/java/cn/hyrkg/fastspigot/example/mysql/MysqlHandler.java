@@ -2,9 +2,8 @@ package cn.hyrkg.fastspigot.example.mysql;
 
 import cn.hyrkg.fastspigot.innercore.annotation.Instance;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerPostInit;
-import cn.hyrkg.fastspigot.simplemysql.service.instances.FastMysqlHandler;
+import cn.hyrkg.fastspigot.spigot.service.simplemysql.instances.FastMysqlHandler;
 import cn.hyrkg.fastspigot.spigot.service.config.AutoLoad;
-import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.sql.ResultSet;

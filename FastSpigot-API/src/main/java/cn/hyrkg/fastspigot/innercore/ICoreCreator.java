@@ -1,6 +1,5 @@
 package cn.hyrkg.fastspigot.innercore;
 
-import cn.hyrkg.fastspigot.innercore.framework.HandlerInfo;
 import cn.hyrkg.fastspigot.spigot.service.ILogger;
 
 public interface ICoreCreator extends ILogger {

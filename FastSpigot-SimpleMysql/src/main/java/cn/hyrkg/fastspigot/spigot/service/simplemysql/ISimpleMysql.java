@@ -1,4 +1,4 @@
-package cn.hyrkg.fastspigot.simplemysql.service;
+package cn.hyrkg.fastspigot.spigot.service.simplemysql;
 
 import cn.hyrkg.fastspigot.innercore.annotation.ImpService;
 import cn.hyrkg.fastspigot.innercore.framework.interfaces.IServiceProvider;
