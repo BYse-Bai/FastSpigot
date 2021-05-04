@@ -5,8 +5,6 @@ import cn.hyrkg.fastspigot.fast.easygui.EasyGuiHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginLoadOrder;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.annotation.dependency.SoftDependency;
-import org.bukkit.plugin.java.annotation.dependency.SoftDependsOn;
 import org.bukkit.plugin.java.annotation.plugin.LoadOrder;
 import org.bukkit.plugin.java.annotation.plugin.Plugin;
 

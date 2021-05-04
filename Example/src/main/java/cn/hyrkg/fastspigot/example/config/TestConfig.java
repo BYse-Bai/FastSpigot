@@ -1,6 +1,5 @@
 package cn.hyrkg.fastspigot.example.config;
 
-import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerInit;
 import cn.hyrkg.fastspigot.innercore.annotation.events.OnHandlerPostInit;
 import cn.hyrkg.fastspigot.spigot.service.config.AutoLoad;
 import cn.hyrkg.fastspigot.spigot.service.config.instances.FastPluginConfig;

@@ -1,11 +1,11 @@
 package cn.hyrkg.fastspigot.fast.forgenet;
 
-import java.io.UnsupportedEncodingException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+
+import java.io.UnsupportedEncodingException;
 
 public class SimpleModNetwork
 {
